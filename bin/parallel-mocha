@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
 var program = require('commander')
-  , fs = require('fs');
+  , fs = require('fs')
+  , _ = require('underscore');
 
 var Runner = require('../lib/runner');
 
@@ -11,25 +12,37 @@ program
   .option('-p, --processes <n>', 'Set number of processes', parseInt)
   .option('-t, --timeout <n>', 'Timeout between testes', parseInt)
   .option('-s, --slow <n>', 'Wait for slow tests', parseInt)
+  .option('-R, --reporter <n>', 'Set reporter (defaults: spec)')
+  .option('-r, --require <n>', 'Require extra libraries like should')
+  .option('-c, --compilers <n>', 'Add compilers like coffeescript')
+  .option('-b, --bin <n>', 'Bin of mocha')
+  .option('-i, --repeat <n>', 'Repeat tests', parseInt)
   .parse(process.argv);
 
+if(program.bin) {
+  program.bin = [program.bin];
+}
 
-// TODO: how can i make sure workers is integer?
-var processes = program.processes || 20;
-var timeout = program.timeout || 300000;
-var slow = program.slow || 230000;
-var files = program.args
+var options = {
+  processes: program.processes || 20,
+  timeout: program.timeout || 300000,
+  slow: program.slow || 230000,
+  reporter: program.reporter || 'spec',
+  require: program.require,
+  compilers: program.compilers,
+  bin: program.bin || ['./node_modules/.bin/mocha'],
+  repeat: program.repeat || 1
+};
 
-var runner = new Runner(files, {
- processes: processes,
- timeout: timeout,
- slow: slow
-});
+var paths = program.args
+
+var runner = new Runner(paths, options);
 
 runner.run(function(error) {
   if (error) {
-    console.log('==== Failed: %s', error.message);
+    console.log('<<<<<<<<<<<< FAILED >>>>>>>>>>>>');
   } else {
-    console.log('==== Pass!');
+
+    console.log('============ PASSED ============');
   }
 });
