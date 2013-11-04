@@ -25,7 +25,6 @@
     "mocha": "1.5.0",
     "should": "1.2.0",
     "underscore": "1.4.0",
-    "done-criteria": "0.0.3",
     "commander": "1.0.4"
   },
   "devDependencies": {},
