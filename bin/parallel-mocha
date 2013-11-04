@@ -30,7 +30,7 @@ var options = {
   reporter: program.reporter || 'spec',
   require: program.require,
   compilers: program.compilers,
-  bin: program.bin || ['./node_modules/.bin/mocha'],
+  bin: program.bin || ['./node_modules/mocha/bin/mocha'],
   repeat: program.repeat || 1
 };
 
