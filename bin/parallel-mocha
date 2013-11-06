@@ -41,8 +41,8 @@ var runner = new Runner(paths, options);
 runner.run(function(error) {
   if (error) {
     console.log('<<<<<<<<<<<< FAILED >>>>>>>>>>>>');
+    process.exit(error.errorCount);
   } else {
-
     console.log('============ PASSED ============');
   }
 });
