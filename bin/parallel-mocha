@@ -38,11 +38,13 @@ var paths = program.args
 
 var runner = new Runner(paths, options);
 
-runner.run(function(error) {
-  if (error) {
-    console.log('<<<<<<<<<<<< FAILED >>>>>>>>>>>>');
-    process.exit(error.errorCount);
+runner.run(function(results) {
+  if (results.errors) {
+    console.log("\n<<<<<<<<<<<< FAILED >>>>>>>>>>>>");
+    console.log(results.errors + ' of ' results.total + ' tests failed');
+    process.exit(results.errors);
   } else {
-    console.log('============ PASSED ============');
+    console.log("\n============ PASSED ============");
+    console.log(results.total + ' tests ran');
   }
 });
