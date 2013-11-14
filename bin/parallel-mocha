@@ -32,7 +32,8 @@ var options = {
   require: program.require,
   compilers: program.compilers,
   bin: program.bin || ['./node_modules/mocha/bin/mocha'],
-  repeat: program.repeat || 1
+  repeat: program.repeat || 1,
+  stagger: program.stagger || 0
 };
 
 var paths = program.args
