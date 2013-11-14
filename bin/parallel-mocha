@@ -10,13 +10,14 @@ program
   .version(JSON.parse(fs.readFileSync(__dirname + '/../package.json', 'utf8')).version)
   .usage('[options] <files...>')
   .option('-p, --processes <n>', 'Set number of processes', parseInt)
-  .option('-t, --timeout <n>', 'Timeout between testes', parseInt)
+  .option('-t, --timeout <n>', 'Timeout between tests', parseInt)
   .option('-s, --slow <n>', 'Wait for slow tests', parseInt)
   .option('-R, --reporter <n>', 'Set reporter (defaults: spec)')
   .option('-r, --require <n>', 'Require extra libraries like should')
   .option('-c, --compilers <n>', 'Add compilers like coffeescript')
   .option('-b, --bin <n>', 'Bin of mocha')
   .option('-i, --repeat <n>', 'Repeat tests', parseInt)
+  .option('-S, --stagger <n>', 'Stagger tests', parseInt)
   .parse(process.argv);
 
 if(program.bin) {
