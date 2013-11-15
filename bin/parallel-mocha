@@ -12,12 +12,14 @@ program
   .option('-p, --processes <n>', 'Set number of processes', parseInt)
   .option('-t, --timeout <n>', 'Timeout between tests', parseInt)
   .option('-s, --slow <n>', 'Wait for slow tests', parseInt)
-  .option('-R, --reporter <n>', 'Set reporter (defaults: spec)')
-  .option('-r, --require <n>', 'Require extra libraries like should')
-  .option('-c, --compilers <n>', 'Add compilers like coffeescript')
-  .option('-b, --bin <n>', 'Bin of mocha')
+  .option('-R, --reporter <reporter>', 'Set reporter (defaults: spec)')
+  .option('-r, --require <library>', 'Require extra libraries like should')
+  .option('-c, --compilers <compilers>', 'Add compilers like coffeescript')
+  .option('-b, --bin <path>', 'Bin of mocha')
   .option('-i, --repeat <n>', 'Repeat tests', parseInt)
   .option('-S, --stagger <n>', 'Stagger tests', parseInt)
+  .option('-d, --data <path>', 'Data file')
+  .option('-I, --index <n>', 'Server index number (multiple test runners)', parseInt)
   .parse(process.argv);
 
 if(program.bin) {
@@ -33,7 +35,9 @@ var options = {
   compilers: program.compilers,
   bin: program.bin || ['./node_modules/mocha/bin/mocha'],
   repeat: program.repeat || 1,
-  stagger: program.stagger || 0
+  stagger: program.stagger || 0,
+  data: program.data || null,
+  index: program.index || 1
 };
 
 var paths = program.args
