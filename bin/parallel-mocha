@@ -20,6 +20,8 @@ program
   .option('-S, --stagger <n>', 'Stagger tests', parseInt)
   .option('-d, --data <path>', 'Data file')
   .option('-I, --index <n>', 'Server index number (multiple test runners)', parseInt)
+  .option('-o, --offset <n>', 'Number of records to skip in the data file', parseInt)
+  .option('-z, --slave', 'Run in slave mode')
   .parse(process.argv);
 
 if(program.bin) {
@@ -37,7 +39,9 @@ var options = {
   repeat: program.repeat || 1,
   stagger: program.stagger || 0,
   data: program.data || null,
-  index: program.index || 1
+  index: program.index || 1,
+  offset: program.offset || 0,
+  slave: program.slave || false
 };
 
 var paths = program.args
