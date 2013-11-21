@@ -1,6 +1,6 @@
 {
   "name": "parallel-mocha",
-  "version": "0.2.18",
+  "version": "0.2.19",
   "description": "run tests for mocha in parallel",
   "keywords": [
     "mocha",
