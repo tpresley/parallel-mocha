@@ -22,6 +22,10 @@ program
   .option('-I, --index <n>', 'Server index number (multiple test runners)', parseInt)
   .option('-o, --offset <n>', 'Number of records to skip in the data file', parseInt)
   .option('-z, --slave', 'Run in slave mode')
+  .option('-B, --browser <name>', 'Name of browser to test against')
+  .option('-O, --os <OS>', 'Operating system to test against')
+  .option('-v, --browserversion <version>', 'Browser version to test against')
+  .option('-x, --raw', 'Raw output')
   .parse(process.argv);
 
 if(program.bin) {
@@ -41,7 +45,8 @@ var options = {
   data: program.data || null,
   index: program.index || 1,
   offset: program.offset || 0,
-  slave: program.slave || false
+  slave: program.slave || false,
+  raw: program.raw || false
 };
 
 var paths = program.args
@@ -49,12 +54,14 @@ var paths = program.args
 var runner = new Runner(paths, options);
 
 runner.run(function(results) {
-  if (results.errors) {
-    console.log("\n<<<<<<<<<<<< FAILED >>>>>>>>>>>>");
-    console.log(results.errors + ' of ' + results.total + ' tests failed');
-    process.exit(results.errors);
-  } else {
-    console.log("\n============ PASSED ============");
-    console.log(results.total + ' tests ran');
+  if (!program.raw) {
+    if (results.errors) {
+      console.log("\n<<<<<<<<<<<< FAILED >>>>>>>>>>>>");
+      console.log(results.errors + ' of ' + results.total + ' tests failed');
+      process.exit(results.errors);
+    } else {
+      console.log("\n============ PASSED ============");
+      console.log(results.total + ' tests ran');
+    }
   }
 });
